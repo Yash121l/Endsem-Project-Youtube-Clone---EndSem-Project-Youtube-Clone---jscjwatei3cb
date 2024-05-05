@@ -1,10 +1,10 @@
+// Signin.js
 import React, { useState } from 'react';
 import "./signin.css"
 import { Link, useNavigate } from 'react-router-dom';
 import Youtubelogo from './YoutubeLogo.png';
 
-const Signin = () => {
-    const [token, setToken] = useState("");
+const Signin = ({ setLogIn, setToken }) => {
     const router = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -38,12 +38,12 @@ const Signin = () => {
                 alert(data.message);
                 console.log(data.message);
             } else {
+                setLogIn(true);
                 alert("Logged In Successfully!");
                 setToken(data.token);
+                console.log(data.token)
                 router("/home");
-                console.log(token)
             }
-            // console.log(data.status);
         } catch (error) {
             console.error('Error:', error);
         }

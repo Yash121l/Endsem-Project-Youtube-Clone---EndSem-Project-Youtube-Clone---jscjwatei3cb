@@ -16,7 +16,7 @@
 .signin-btn {
     margin-right: 20px;
     padding: 10px 20px;
-    background-color: transparent;
+    background-color: red;
     border: 1px solid white;
     border-radius: 5px;
     color: white;
@@ -29,7 +29,6 @@
 }
 
 .home-page {
-
     background-color: black;
     color: white;
     /* max-width: 1200px; */
@@ -63,7 +62,8 @@ h1 {
 
 .video-info {
     padding: 10px 10px 5px 10px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
 }
 
 .video-info h3 {

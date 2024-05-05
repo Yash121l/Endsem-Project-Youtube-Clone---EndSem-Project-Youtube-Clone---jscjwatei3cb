@@ -27,12 +27,6 @@ function Home() {
         }
     };
 
-    const handelClick = (e) => {
-        const videoCard = e.currentTarget.closest('.video-card');
-        const videoId = videoCard.dataset.id;
-        console.log(videoId);
-    }
-
     return (
         <>
             <nav className="navbar">
@@ -44,15 +38,20 @@ function Home() {
             <div className="home-page">
                 <div className="video-list">
                     {videos.map(video => (
-                        <div key={video._id} className="video-card" data-id={video._id} onClick={handelClick}>
+                        <div key={video._id} className="video-card" data-id={video._id} onClick={(e) => {
+                            const videoCard = e.currentTarget.closest('.video-card');
+                            const videoId = videoCard.dataset.id;
+                            console.log(`/home/${videoId}`);
+                            router(`/home/${videoId}`)
+                        }}>
                             <img src={video.thumbnail} alt={video.title} />
                             <div className="video-info">
                                 <h3>{video.title}</h3>
                                 <div className='h23232323'>
-                                    <span className='video-type'> <i class="fa-solid fa-video"/> {video.type}</span>
-                                    <span className='video-director'> <i class="fa-regular fa-circle-user"/> {video.director}</span>
+                                    <span className='video-type'> <i className="fa-solid fa-video" /> {video.type}</span>
+                                    <span className='video-director'> <i className="fa-regular fa-circle-user" /> {video.director}</span>
                                 </div>
-                                <p className='video-cast'> <i class="fa-solid fa-user-group"/> {video.cast.join(', ')}</p>
+                                <p className='video-cast'> <i className="fa-solid fa-user-group" /> {video.cast.join(', ')}</p>
                             </div>
                         </div>
                     ))}
