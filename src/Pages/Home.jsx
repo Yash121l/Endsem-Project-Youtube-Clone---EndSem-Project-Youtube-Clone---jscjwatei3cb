@@ -14,7 +14,7 @@ function Home() {
 
     const fetchVideos = async () => {
         try {
-            const response = await fetch('https://academics.newtonschool.co/api/v1/ott/show?limit=100', {
+            const response = await fetch('https://academics.newtonschool.co/api/v1/ott/show?limit=200', {
                 headers: {
                     'accept': 'application/json',
                     'projectID': 'jscjwatei3cb'
@@ -30,7 +30,7 @@ function Home() {
     return (
         <>
             <nav className="navbar">
-                <img src={Youtubelogo} alt='YouTube Logo' onClick={() => { router("/") }} />
+                <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/") }} />
                 <div className="right">
                     <button className="signin-btn" onClick={() => { router("/signup") }}>Sign Up</button>
                 </div>

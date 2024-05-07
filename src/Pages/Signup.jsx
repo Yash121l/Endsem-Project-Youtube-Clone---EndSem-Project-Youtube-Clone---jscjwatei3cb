@@ -56,6 +56,7 @@ const Signup = () => {
     <>
       <nav className="navbar">
         <img
+          className="logo"
           src={Youtubelogo}
           alt="YouTube Logo"
           onClick={() => {
@@ -64,7 +65,7 @@ const Signup = () => {
         />
         <div className="right">
           <button
-            className="signinBtn"
+            className="signin-btn"
             onClick={() => {
               router("/signin");
             }}

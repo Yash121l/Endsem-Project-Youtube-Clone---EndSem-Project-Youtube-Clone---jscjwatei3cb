@@ -52,7 +52,7 @@ const Signin = ({ setLogIn, setToken }) => {
     return (
         <>
             <nav className="navbar">
-                <img src={Youtubelogo} alt='YouTube Logo' onClick={() => { router("/" )}}/> 
+                <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/" )}}/> 
                 <div className="right">
                     <button className="signin-btn" onClick={() => { router("/signup" ) }}>Sign Up</button>
                 </div>
