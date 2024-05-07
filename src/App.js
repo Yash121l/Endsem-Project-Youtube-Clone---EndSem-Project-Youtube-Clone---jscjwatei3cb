@@ -33,7 +33,7 @@ function App() {
       element: isLogin ? <Details token={token}/> : <Navigate replace to="/signin"/> // Redirect to Signin if not logged in else to details page
     }
   ]);
-
+  
   return <RouterProvider router={router} />;
 }
 

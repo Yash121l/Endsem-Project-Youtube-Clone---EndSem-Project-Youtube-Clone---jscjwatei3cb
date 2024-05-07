@@ -75,3 +75,7 @@
 .span {
     color: gray;
 }
+
+.Toastify__toast-container--top-right {
+    margin-top: 64px;
+}

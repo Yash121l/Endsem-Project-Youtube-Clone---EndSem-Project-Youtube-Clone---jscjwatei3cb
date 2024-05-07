@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import Youtubelogo from "./YoutubeLogo.png";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
   const router = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -39,13 +41,18 @@ const Signup = () => {
       );
       const data = await response.json();
       if (data.status === "fail") {
-        alert(data.message);
+        toast.error(data.message, {
+          theme: "dark"
+      })
+        // alert(data.message);
         console.log(data.message);
       } else {
-        alert("Accounte created Successfully!");
-        setToken(data.token);
+        toast.success("Accounte created Successfully!", {
+          theme: "dark"
+      })
+        // setToken(data.token);
         router("/signin");
-        console.log(token);
+        // console.log(token);
       }
     } catch (error) {
       console.error("Error:", error);

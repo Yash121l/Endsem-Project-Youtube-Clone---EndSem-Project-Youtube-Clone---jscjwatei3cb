@@ -1,8 +1,9 @@
-// Signin.js
 import React, { useState } from 'react';
 import "./signin.css"
 import { Link, useNavigate } from 'react-router-dom';
 import Youtubelogo from './YoutubeLogo.png';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signin = ({ setLogIn, setToken }) => {
     const router = useNavigate();
@@ -35,11 +36,17 @@ const Signin = ({ setLogIn, setToken }) => {
             });
             const data = await response.json();
             if (data.status === "fail") {
-                alert(data.message);
+                toast.error(data.message, {
+                    theme: "dark"
+                })
+                // alert(data.message);
                 console.log(data.message);
             } else {
+                toast.success("Logged In Successfully", {
+                    theme: "dark"
+                })
                 setLogIn(true);
-                alert("Logged In Successfully!");
+                // alert("Logged In Successfully!");
                 setToken(data.token);
                 console.log(data.token)
                 router("/home");
@@ -52,9 +59,9 @@ const Signin = ({ setLogIn, setToken }) => {
     return (
         <>
             <nav className="navbar">
-                <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/" )}}/> 
+                <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/") }} />
                 <div className="right">
-                    <button className="signin-btn" onClick={() => { router("/signup" ) }}>Sign Up</button>
+                    <button className="signin-btn" onClick={() => { router("/signup") }}>Sign Up</button>
                 </div>
             </nav>
             <div className="signin-container">
