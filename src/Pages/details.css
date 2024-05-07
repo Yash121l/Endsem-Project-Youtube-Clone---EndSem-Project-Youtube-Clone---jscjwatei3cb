@@ -1,5 +1,48 @@
-.randeringscreen{
+.randeringscreen {
     height: 100%;
     width: 100%;
     background-color: black;
+}
+
+.right-text {
+    margin-right: 20px;
+}
+
+.top-part {
+    display: flex;
+    flex-direction: row;
+}
+
+.top-part video {
+    width: calc(66.67% - 10px);
+    margin-right: 10px;
+}
+
+.top-part img {
+    width: calc(33.33% - 10px);
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+
+    .top-part video,
+    .top-part img {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+.title {
+    text-align: left;
+    color: white;
+}
+
+.randeringscreen {
+    height: calc(100vh); 
+    width: 100%;
+    overflow-y: auto; 
+    background-color: black;
+    padding: 20px;
+    color: white;
 }

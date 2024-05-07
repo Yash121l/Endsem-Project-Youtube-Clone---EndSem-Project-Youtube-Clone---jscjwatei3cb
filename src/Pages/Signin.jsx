@@ -5,7 +5,7 @@ import Youtubelogo from './YoutubeLogo.png';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Signin = ({ setLogIn, setToken }) => {
+const Signin = ({ setLogIn, setToken, setUserName }) => {
     const router = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -39,16 +39,13 @@ const Signin = ({ setLogIn, setToken }) => {
                 toast.error(data.message, {
                     theme: "dark"
                 })
-                // alert(data.message);
-                console.log(data.message);
             } else {
                 toast.success("Logged In Successfully", {
                     theme: "dark"
                 })
                 setLogIn(true);
-                // alert("Logged In Successfully!");
+                setUserName(data.data.user.name)
                 setToken(data.token);
-                console.log(data.token)
                 router("/home");
             }
         } catch (error) {

@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   const [isLogin, setLogIn] = React.useState(false);
   const [token, setToken] = React.useState("");
+  const [userName, setUserName] = React.useState("");
 
   const router = createBrowserRouter([
     {
@@ -22,15 +23,15 @@ function App() {
     },
     {
       path: "/signin/",
-      element: <Signin setLogIn={setLogIn} setToken={setToken}/> 
+      element: <Signin setLogIn={setLogIn} setToken={setToken} setUserName={setUserName}/> 
     },
     {
       path: "/home/",
-      element: <Home/>
+      element: <Home isLogin={isLogin} userName={userName}/>
     },
     {
       path: "/home/:id",
-      element: isLogin ? <Details token={token}/> : <Navigate replace to="/signin"/> // Redirect to Signin if not logged in else to details page
+      element: isLogin ? <Details token={token} userName={userName}/> : <Navigate replace to="/signin"/>
     }
   ]);
   

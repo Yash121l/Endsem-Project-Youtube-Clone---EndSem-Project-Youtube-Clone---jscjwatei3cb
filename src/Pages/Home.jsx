@@ -3,7 +3,7 @@ import "./home.css"
 import { useNavigate } from 'react-router-dom';
 import Youtubelogo from './YoutubeLogo.png';
 
-function Home() {
+function Home({isLogin, userName}) {
     const [videos, setVideos] = useState([]);
 
     const router = useNavigate();
@@ -22,23 +22,24 @@ function Home() {
             });
             const data = await response.json();
             setVideos(data.data);
+            console.log("data fetch from server")
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
-
     return (
         <>
             <nav className="navbar">
                 <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/") }} />
+                {isLogin ? <h1 className="right-text">Hello, {userName}</h1> : 
                 <div className="right">
                     <button className="signin-btn" onClick={() => { router("/signup") }}>Sign Up</button>
-                </div>
+                </div>}
             </nav>
             <div className="home-page">
                 <div className="video-list">
                     {videos.map(video => (
-                        <div key={video._id} className="video-card" data-id={video._id} onClick={(e) => {
+                        <div key={video._id} className={isLogin ? "video-card pointer" : "video-card" } data-id={video._id} onClick={(e) => {
                             const videoCard = e.currentTarget.closest('.video-card');
                             const videoId = videoCard.dataset.id;
                             console.log(`/home/${videoId}`);
