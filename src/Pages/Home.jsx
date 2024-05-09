@@ -31,7 +31,7 @@ function Home({isLogin, userName}) {
         <>
             <nav className="navbar">
                 <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/") }} />
-                {isLogin ? <h1 className="right-text">Hello, {userName}</h1> : 
+                {isLogin ? <h1 className="right-text"><i class="fa-solid fa-user fa-sm"></i> {userName}</h1> : 
                 <div className="right">
                     <button className="signin-btn" onClick={() => { router("/signup") }}>Sign Up</button>
                 </div>}

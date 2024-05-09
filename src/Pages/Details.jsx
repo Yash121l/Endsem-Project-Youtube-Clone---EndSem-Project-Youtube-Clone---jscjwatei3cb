@@ -32,7 +32,7 @@ function Details({ token, userName }) {
         <>
             <nav className="navbar">
                 <img src={Youtubelogo} alt='YouTube Logo' className="logo" onClick={() => { router("/") }} />
-                <h1 className="right-text">Hello, {userName}</h1>
+                <h1 className="right-text"><i class="fa-solid fa-user fa-sm"></i> {userName}</h1>
             </nav>
             {data ? ( // Check if data exists
                 <div className="randeringscreen">
