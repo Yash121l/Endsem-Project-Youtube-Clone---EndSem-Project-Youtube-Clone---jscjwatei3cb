@@ -37,6 +37,16 @@ function Home({isLogin, userName}) {
                 </div>}
             </nav>
             <div className="home-page">
+                <div className='filter-bar'>
+                    <button>All</button>
+                    <button>web series</button>
+                    <button>video song</button>
+                    <button>tv show</button>
+                    <button>short film</button>
+                    <button>documentary</button>
+                    <button>movie</button>
+                    <button>trailer</button>
+                </div>
                 <div className="video-list">
                     {videos.map(video => (
                         <div key={video._id} className={isLogin ? "video-card pointer" : "video-card" } data-id={video._id} onClick={(e) => {

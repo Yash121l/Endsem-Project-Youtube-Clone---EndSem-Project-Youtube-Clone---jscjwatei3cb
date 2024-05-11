@@ -103,3 +103,21 @@ h1 {
 .pointer {
     cursor: pointer;
 }
+
+.filter-bar {
+    overflow-x: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: unset;
+    margin-bottom: 20px;
+}
+
+.filter-bar button {
+    margin-right: 10px;
+    background-color: #25292c;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    border: 1px solid hsla(0,0%,100%,0.05882);
+
+}
