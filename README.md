@@ -164,7 +164,7 @@ cd Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb
 Use the following command to run Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb:
 
 ```sh
-> npm run
+> npm start
 ```
 
 ### 🧪 Tests
@@ -172,7 +172,7 @@ Use the following command to run Endsem-Project-Youtube-Clone---EndSem-Project-Y
 To execute tests, run:
 
 ```sh
-> npm test
+> npm run test
 ```
 
 ---
