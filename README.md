@@ -156,7 +156,7 @@ cd Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb
 3. Install the dependencies:
 
 ```sh
-> INSERT-INSTALL-COMMANDS
+> npm install
 ```
 
 ### 🤖 Running Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb
@@ -164,7 +164,7 @@ cd Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb
 Use the following command to run Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb:
 
 ```sh
-> INSERT-RUN-COMMANDS
+> npm run
 ```
 
 ### 🧪 Tests
@@ -172,7 +172,7 @@ Use the following command to run Endsem-Project-Youtube-Clone---EndSem-Project-Y
 To execute tests, run:
 
 ```sh
-> INSERT-TEST-COMMANDS
+> npm test
 ```
 
 ---
