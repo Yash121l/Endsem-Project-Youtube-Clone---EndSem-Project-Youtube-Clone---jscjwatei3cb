@@ -1,117 +1,87 @@
-import React, { useState } from 'react';
-import "./signup.css"
-import { Link, useNavigate } from 'react-router-dom';
+// Import required libraries and components
+import React, { useEffect, useState } from 'react';
+import "./home.css"
+import { useNavigate } from 'react-router-dom';
 import Youtubelogo from './YoutubeLogo.png';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-// Component for user signup
-const Signup = () => {
-    // Create an instance of the useNavigate hook to navigate between pages
+// Home component
+function Home({isLogin, userName}) {
+    // Initialize state variables
+    const [videos, setVideos] = useState([]);
+
+    // Get a reference to the router
     const router = useNavigate();
 
-    // Initialize state for signup form data
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        appType: 'ott'
-    });
+    // Fetch videos from the server when the component mounts
+    useEffect(() => {
+        fetchVideos();
+    }, []);
 
-    // Handle changes to the signup form data
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
-
-    // Handle submission of the signup form
-    const handleSubmit = async (e) => {
-        // Prevent the default form submission behavior
-        e.preventDefault();
-
+    // Fetch videos from the server
+    const fetchVideos = async () => {
         try {
-            // Send a POST request to the server with the signup form data
-            const response = await fetch('https://academics.newtonschool.co/api/v1/user/signup', {
-                method: 'POST',
+            // Send a GET request to the server
+            const response = await fetch('https://academics.newtonschool.co/api/v1/ott/show?limit=200', {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'projectID': 'jscjwatei3cb',
-                    'accept': 'application/json'
-                },
-                body: JSON.stringify(formData)
+                    'accept': 'application/json',
+                    'projectID': 'jscjwatei3cb'
+                }
             });
 
-            // Parse the response as JSON
+            // Extract data from the response
             const data = await response.json();
-
-            // Handle signup failure
-            if (data.status === "fail") {
-                toast.error(data.message, {
-                    theme: "dark"
-                })
-            }
-            // Handle signup success
-            else {
-                toast.success("Account created Successfully!", {
-                    theme: "dark"
-                })
-                router("/signin");
-            }
+            setVideos(data.data);
+            console.log("data fetch from server")
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error fetching data:', error);
         }
     };
 
-    // Render the signup component
+    // Render the component
     return (
         <>
-            // Navigation bar with YouTube logo and signin button
             <nav className="navbar">
                 <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/") }} />
+                {isLogin? <h1 className="right-text"><i class="fa-solid fa-user fa-sm"></i> {userName}</h1> : 
                 <div className="right">
-                    <button className="signin-btn" onClick={() => { router("/signin") }}>Sign In</button>
-                </div>
+                    <button className="signin-btn" onClick={() => { router("/signup") }}>Sign Up</button>
+                </div>}
             </nav>
-
-            // Signup form
-            <div className="signupContainer">
-                <form className="signupForm" onSubmit={handleSubmit}>
-                    <h1>Sign Up</h1>
-                    // Name input field
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
-                    // Email input field
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    // Password input field
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                    // Signin button
-                    <button type="submit">Sign Up</button>
-                    // Link to signin page
-                    <span className='span'>Already have an account?</span> <Link to="/signin">Sign in here.</Link>
-                </form>
+            <div className="home-page">
+                <div className='filter-bar'>
+                    <button>All</button>
+                    <button>web series</button>
+                    <button>video song</button>
+                    <button>tv show</button>
+                    <button>short film</button>
+                    <button>documentary</button>
+                    <button>movie</button>
+                    <button>trailer</button>
+                </div>
+                <div className="video-list">
+                    {videos.map(video => (
+                        <div key={video._id} className={isLogin? "video-card pointer" : "video-card" } data-id={video._id} onClick={(e) => {
+                            const videoCard = e.currentTarget.closest('.video-card');
+                            const videoId = videoCard.dataset.id;
+                            console.log(`/home/${videoId}`);
+                            router(`/home/${videoId}`)
+                        }}>
+                            <img src={video.thumbnail} alt={video.title} />
+                            <div className="video-info">
+                                <h3>{video.title}</h3>
+                                <div className='h23232323'>
+                                    <span className='video-type'> <i className="fa-solid fa-video" /> {video.type}</span>
+                                    <span className='video-director'> <i className="fa-regular fa-circle-user" /> {video.director}</span>
+                                </div>
+                                <p className='video-cast'> <i className="fa-solid fa-user-group" /> {video.cast.join(', ')}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </>
     );
-};
+}
 
-export default Signup;
+// Export the Home component
+export default Home;
