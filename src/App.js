@@ -1,42 +1,111 @@
-import "./index.css";
-import * as React from "react";
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
-import Home from "./Pages/Home";
-import Signup from "./Pages/Signup";
-import Signin from "./Pages/Signin";
-import Details from "./Pages/Details";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
+import "./signin.css"
+import { Link, useNavigate } from 'react-router-dom';
+import Youtubelogo from './YoutubeLogo.png';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function App() {
-  const [isLogin, setLogIn] = React.useState(false);
-  const [token, setToken] = React.useState("");
-  const [userName, setUserName] = React.useState("");
+// Component for user signin
+const Signin = ({ setLogIn, setToken, setUserName }) => {
+  // Create an instance of the useNavigate hook to navigate between pages
+  const router = useNavigate();
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Navigate replace to="/home"/>
-    },
-    {
-      path: "/signup/",
-      element: <Signup/>
-    },
-    {
-      path: "/signin/",
-      element: <Signin setLogIn={setLogIn} setToken={setToken} setUserName={setUserName}/> 
-    },
-    {
-      path: "/home/",
-      element: <Home isLogin={isLogin} userName={userName}/>
-    },
-    {
-      path: "/home/:id",
-      element: isLogin ? <Details token={token} userName={userName}/> : <Navigate replace to="/signin"/>
+  // Initialize state for signin form data
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    appType: 'ott'
+  });
+
+  // Handle changes to the signin form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  // Handle submission of the signin form
+  const handleSubmit = async (e) => {
+    // Prevent the default form submission behavior
+    e.preventDefault();
+
+    try {
+      // Send a POST request to the server with the signin form data
+      const response = await fetch('https://academics.newtonschool.co/api/v1/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'projectID': 'jscjwatei3cb',
+          'accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      // Parse the response as JSON
+      const data = await response.json();
+
+      // Handle signin failure
+      if (data.status === "fail") {
+        toast.error(data.message, {
+          theme: "dark"
+        })
+      }
+      // Handle signin success
+      else {
+        toast.success("Logged In Successfully", {
+          theme: "dark"
+        })
+        setLogIn(true);
+        setUserName(data.data.user.name)
+        setToken(data.token);
+        router("/home");
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
-  ]);
-  
-  return <RouterProvider router={router} />;
-}
+  };
 
-export default App;
+  // Render the signin component
+  return (
+    <>
+            // Navigation bar with YouTube logo and signin button
+      <nav className="navbar">
+        <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/") }} />
+        <div className="right">
+          <button className="signin-btn" onClick={() => { router("/signup") }}>Sign Up</button>
+        </div>
+      </nav>
 
+            // Signin form
+      <div className="signin-container">
+        <form className="signin-form" onSubmit={handleSubmit}>
+          <h1>Sign In</h1>
+                    // Email input field
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+                    // Password input field
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+                    // Signin button
+          <button type="submit">Sign In</button>
+                    // Link to signup page
+          <span className='span'>New to YouTube? </span> <Link to="/signup">Sign up here.</Link>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default Signin;
