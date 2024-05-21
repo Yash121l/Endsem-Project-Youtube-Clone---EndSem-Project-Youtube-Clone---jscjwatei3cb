@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import "./signup.css";
 import { Link, useNavigate } from 'react-router-dom';
-import Youtubelogo from './YoutubeLogo.png';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Component for user signup
-const Signup = () => {
+const Signup = ({setButtonText, setButtonPath, setLogin, setToken, setUser}) => {
   // Create an instance of the useNavigate hook to navigate between pages
   const router = useNavigate();
+  setButtonText('Sign In')
+  setButtonPath('/signin')
 
   // Initialize state for signup form data
   const [formData, setFormData] = useState({
@@ -58,7 +57,10 @@ const Signup = () => {
         toast.success("Account created Successfully!", {
           theme: "dark"
         })
-        router("/signin");
+        setLogin(true)
+        setToken(data.token)
+        setUser(data.data.user.name)
+        router("/home");
       }
     } catch (error) {
       console.error('Error:', error);
@@ -68,46 +70,43 @@ const Signup = () => {
   // Render the signup component
   return (
     <>
-            // Navigation bar with YouTube logo and signin button
-      <nav className="navbar">
-        <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/") }} />
-        <div className="right">
-          <button className="signin-btn" onClick={() => { router("/signin") }}>Sign In</button>
-        </div>
-      </nav>
-
-            // Signup form
-      <div className="signupContainer">
-        <form className="signupForm" onSubmit={handleSubmit}>
-          <h1>Sign Up</h1>
-                    // Name input field
+      {/* // Signup form */}
+      <div className="flex justify-center text-center items-center bg-black h-[100dvh]">
+        <form className="max-w-[400px] w-full bg-[#333] text-[white] p-10 rounded-[10px] h-max" onSubmit={handleSubmit}>
+          <h1 className='text-center text-[x-large] mb-5' >Sign Up</h1>
+          {/* // Name input field */}
           <input
+            className='w-full bg-[#555] text-[white] mb-[15px] p-2.5 rounded-[5px] border-[none]'
             type="text"
             name="name"
             placeholder="Name"
             value={formData.name}
             onChange={handleChange}
           />
-                    // Email input field
+         {/* // Email input field */}
           <input
+            className='w-full bg-[#555] text-[white] mb-[15px] p-2.5 rounded-[5px] border-[none]'
             type="email"
             name="email"
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
           />
-                    // Password input field
+          {/* // Password input field */}
           <input
+            className='w-full bg-[#555] text-[white] mb-[15px] p-2.5 rounded-[5px] border-[none]'
             type="password"
             name="password"
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
           />
-                    // Signin button
-          <button type="submit">Sign Up</button>
-                    // Link to signin page
-          <span className='span'>Already have an account?</span> <Link to="/signin">Sign in here.</Link>
+                    {/* // Signin button */}
+          <button type="submit" 
+          className='w-full bg-[red] text-[white] cursor-pointer p-2.5 rounded-[5px] border-[none] hover:bg-[rgba(255,0,0,0.777)]'
+          >Sign Up</button>
+                    {/* // Link to signin page */}
+          <span className='text-[gray]'>Already have an account?</span> <Link to="/signin">Sign in here.</Link>
         </form>
       </div>
     </>

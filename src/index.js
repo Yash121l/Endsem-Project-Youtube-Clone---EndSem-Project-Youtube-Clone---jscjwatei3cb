@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.css';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import {ToastContainer, Bounce} from "react-toastify";
@@ -10,7 +11,7 @@ root.render(
     <ToastContainer
       position="top-right"
       autoClose={5000}
-      hideProgressBar={false}
+      hideProgressBar= {false}
       newestOnTop={false}
       closeOnClick
       rtl={false}

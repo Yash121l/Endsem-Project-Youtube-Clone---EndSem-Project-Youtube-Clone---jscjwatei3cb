@@ -1,13 +1,18 @@
 // Import required libraries and components
 import React, { useEffect, useState } from 'react';
-import "./home.css"
 import { useNavigate } from 'react-router-dom';
-import Youtubelogo from './YoutubeLogo.png';
 
 // Home component
-function Home({isLogin, userName}) {
+function Home({ setButtonText, setButtonPath, login , user}) {
     // Initialize state variables
     const [videos, setVideos] = useState([]);
+    if (login) {
+        setButtonText(`${user}`)
+        setButtonPath('/')
+    } else {
+        setButtonText('Sign Up')
+        setButtonPath('/signin')
+    }
 
     // Get a reference to the router
     const router = useNavigate();
@@ -40,40 +45,32 @@ function Home({isLogin, userName}) {
     // Render the component
     return (
         <>
-            <nav className="navbar">
-                <img src={Youtubelogo} className='logo' alt='YouTube Logo' onClick={() => { router("/") }} />
-                {isLogin? <h1 className="right-text"><i class="fa-solid fa-user fa-sm"></i> {userName}</h1> : 
-                <div className="right">
-                    <button className="signin-btn" onClick={() => { router("/signup") }}>Sign Up</button>
-                </div>}
-            </nav>
-            <div className="home-page">
-                <div className='filter-bar'>
-                    <button>All</button>
-                    <button>web series</button>
-                    <button>video song</button>
-                    <button>tv show</button>
-                    <button>short film</button>
-                    <button>documentary</button>
-                    <button>movie</button>
-                    <button>trailer</button>
+            <div className="bg-[black] text-[white] mx-auto my-0 px-5 py-2.5 pt-28">
+                <div className='overflow-x-auto flex items-center flex-row mb-5'>
+                    <button className='bg-[#25292c] border mr-2.5 px-4 py-1.5 rounded-full border-solid border-[hsla(0,0%,100%,0.05882)]'>All</button>
+                    <button className='bg-[#25292c] border mr-2.5 px-4 py-1.5 rounded-full border-solid border-[hsla(0,0%,100%,0.05882)]'>web series</button>
+                    <button className='bg-[#25292c] border mr-2.5 px-4 py-1.5 rounded-full border-solid border-[hsla(0,0%,100%,0.05882)]'>video song</button>
+                    <button className='bg-[#25292c] border mr-2.5 px-4 py-1.5 rounded-full border-solid border-[hsla(0,0%,100%,0.05882)]'>tv show</button>
+                    <button className='bg-[#25292c] border mr-2.5 px-4 py-1.5 rounded-full border-solid border-[hsla(0,0%,100%,0.05882)]'>short film</button>
+                    <button className='bg-[#25292c] border mr-2.5 px-4 py-1.5 rounded-full border-solid border-[hsla(0,0%,100%,0.05882)]'>documentary</button>
+                    <button className='bg-[#25292c] border mr-2.5 px-4 py-1.5 rounded-full border-solid border-[hsla(0,0%,100%,0.05882)]'>movie</button>
+                    <button className='bg-[#25292c] border mr-2.5 px-4 py-1.5 rounded-full border-solid border-[hsla(0,0%,100%,0.05882)]'>trailer</button>
                 </div>
-                <div className="video-list">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-5">
                     {videos.map(video => (
-                        <div key={video._id} className={isLogin? "video-card pointer" : "video-card" } data-id={video._id} onClick={(e) => {
-                            const videoCard = e.currentTarget.closest('.video-card');
-                            const videoId = videoCard.dataset.id;
-                            console.log(`/home/${videoId}`);
-                            router(`/home/${videoId}`)
+                        <div key={video._id} className={login? " overflow-hidden transition-[0.5s] p-[5px] rounded-[5px] hover:transition-[1s] hover cursor-pointer :bg-[rgba(128,128,128,0.24)]  " : " overflow-hidden transition-[0.5s] p-[5px] rounded-[5px] hover:transition-[1s] hover:bg-[rgba(128,128,128,0.24)]" } data-id={video._id} onClick={(e) => {
+                            router(`/home/${video._id}`)
                         }}>
-                            <img src={video.thumbnail} alt={video.title} />
-                            <div className="video-info">
-                                <h3>{video.title}</h3>
-                                <div className='h23232323'>
-                                    <span className='video-type'> <i className="fa-solid fa-video" /> {video.type}</span>
-                                    <span className='video-director'> <i className="fa-regular fa-circle-user" /> {video.director}</span>
+                            <img src={video.thumbnail} alt={video.title} 
+                                className=' w-full h-[200px] transition-[2s] rounded hover:transition-[2s] hover:scale-110'
+                            />
+                            <div className="pt-2.5 pb-[5px] px-2.5">
+                                <h3 className='mb-2.5'>{video.title}</h3>
+                                <div className='flex justify-between'>
+                                    <span className='text-[gray]'> <i className="fa-solid fa-video" /> {video.type}</span>
+                                    <span className='text-[gray]'> <i className="fa-regular fa-circle-user" /> {video.director}</span>
                                 </div>
-                                <p className='video-cast'> <i className="fa-solid fa-user-group" /> {video.cast.join(', ')}</p>
+                                <p className='text-[gray] mb-1'> <i className="fa-solid fa-user-group" /> {video.cast.join(', ')}</p>
                             </div>
                         </div>
                     ))}

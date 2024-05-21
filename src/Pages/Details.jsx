@@ -1,20 +1,19 @@
-import { useNavigate, useParams } from "react-router-dom";
-import './details.css';
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Youtubelogo from './YoutubeLogo.png';
 
 // Component for displaying video details
-function Details({ token, userName }) {
+function Details({ token, setButtonText, setButtonPath, user }) {
     // Initialize state for video data
     let [data, setData] = useState()
+    setButtonText(`${user}`)
+    setButtonPath('/')
 
     // Import useNavigate hook from react-router-dom to navigate between pages
-    const router = useNavigate();
 
     // Fetch video data when the component mounts
     useEffect(() => {
         fetchVideos();   // eslint-disable-next-line
-    },[]);
+    }, []);
 
     // Get video ID from the URL parameters
     const { id } = useParams();
@@ -45,20 +44,24 @@ function Details({ token, userName }) {
     // Render the component
     return (
         <>
-            // Render the navigation bar with the YouTube logo and user name
-            <nav className="navbar">
-                <img src={Youtubelogo} alt='YouTube Logo' className="logo" onClick={() => { router("/") }} />
-                <h1 className="right-text"><i class="fa-solid fa-user fa-sm"></i> {userName}</h1>
-            </nav>
+            {/* Render the video details if data is available, otherwise render "No data" */}
+            {data ? (
+                <div className="h-[100hvd] w-full bg-[black] h-[calc(100vh)] w-full overflow-y-auto bg-[black] text-[white] pt-[100px] pl-3">
+                    <div className="flex flex-row">
+                        <video
+                            className="w-full sm:w-[calc(66.67%_-_10px)] mr-2.5"
+                            src={data.video_url}
+                            controls
+                        />
+                        <img
+                            src={data.thumbnail}
+                            alt="thumbnail of Video"
+                            className="hidden sm:block w-full sm:w-[calc(33.33%_-_10px)] mb-2.5"
+                        />
 
-            // Render the video details if data is available, otherwise render "No data"
-            {data? (
-                <div className="randeringscreen">
-                    <div className="top-part">
-                        <video className="video" src={data.video_url} controls />
-                        <img src={data.thumbnail} alt="thumbnail of Video"/>
+
                     </div>
-                    <h1 className="title">{data.title}</h1>
+                    <h1 className="text-left text-[white] text-[40px]">{data.title}</h1>
                     <p className="description">description: {data.description} </p>
                     {data.keywords.map((keyword, index) => (
                         <span key={index}>
@@ -74,7 +77,7 @@ function Details({ token, userName }) {
                     <i className="fa-solid fa-user-group" /> Cast: {data.cast.join(", ")}
                 </div>
             ) : (
-                <h1>No data</h1> 
+                <h1>No data</h1>
             )}
         </>
     )
