@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb/static/css/main.54be27fc.css",
+    "main.js": "/Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb/static/js/main.558ba659.js",
+    "index.html": "/Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb/index.html",
+    "main.54be27fc.css.map": "/Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb/static/css/main.54be27fc.css.map",
+    "main.558ba659.js.map": "/Endsem-Project-Youtube-Clone---EndSem-Project-Youtube-Clone---jscjwatei3cb/static/js/main.558ba659.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.54be27fc.css",
+    "static/js/main.558ba659.js"
+  ]
+}
