@@ -3,22 +3,29 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Home component
-function Home({ setButtonText, setButtonPath, login , user}) {
+function Home({ setButtonText, setButtonPath, login, user }) {
     // Initialize state variables
     const [videos, setVideos] = useState([]);
-    if (login) {
-        setButtonText(`${user}`)
-        setButtonPath('/')
-    } else {
-        setButtonText('Sign Up')
-        setButtonPath('/signin')
-    }
+    // if (login) {
+    //     setButtonText(`${user}`)
+    //     setButtonPath('/')
+    // } else {
+    //     setButtonText('Sign Up')
+    //     setButtonPath('/signin')
+    // }
 
     // Get a reference to the router
     const router = useNavigate();
 
     // Fetch videos from the server when the component mounts
     useEffect(() => {
+        if (login) {
+            setButtonText(`${user}`)
+            setButtonPath('/')
+        } else {
+            setButtonText('Sign Up')
+            setButtonPath('/signin')
+        }
         fetchVideos();
     }, []);
 
@@ -58,10 +65,10 @@ function Home({ setButtonText, setButtonPath, login , user}) {
                 </div>
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-5">
                     {videos.map(video => (
-                        <div key={video._id} className={login? " overflow-hidden transition-[0.5s] p-[5px] rounded-[5px] hover:transition-[1s] hover cursor-pointer :bg-[rgba(128,128,128,0.24)]  " : " overflow-hidden transition-[0.5s] p-[5px] rounded-[5px] hover:transition-[1s] hover:bg-[rgba(128,128,128,0.24)]" } data-id={video._id} onClick={(e) => {
+                        <div key={video._id} className={login ? " overflow-hidden transition-[0.5s] p-[5px] rounded-[5px] hover:transition-[1s] hover cursor-pointer :bg-[rgba(128,128,128,0.24)]  " : " overflow-hidden transition-[0.5s] p-[5px] rounded-[5px] hover:transition-[1s] hover:bg-[rgba(128,128,128,0.24)]"} data-id={video._id} onClick={(e) => {
                             router(`/home/${video._id}`)
                         }}>
-                            <img src={video.thumbnail} alt={video.title} 
+                            <img src={video.thumbnail} alt={video.title}
                                 className=' w-full h-[200px] transition-[2s] rounded hover:transition-[2s] hover:scale-110'
                             />
                             <div className="pt-2.5 pb-[5px] px-2.5">

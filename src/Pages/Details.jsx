@@ -46,7 +46,7 @@ function Details({ token, setButtonText, setButtonPath, user }) {
         <>
             {/* Render the video details if data is available, otherwise render "No data" */}
             {data ? (
-                <div className="h-[100hvd] w-full bg-[black] h-[calc(100vh)] w-full overflow-y-auto bg-[black] text-[white] pt-[100px] pl-3">
+                <div className="h-[100hvd] w-full bg-[black]  overflow-y-auto  text-[white] pt-[100px] pl-3">
                     <div className="flex flex-row">
                         <video
                             className="w-full sm:w-[calc(66.67%_-_10px)] mr-2.5"
